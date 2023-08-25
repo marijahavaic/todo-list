@@ -19,5 +19,11 @@ app.use(bodyParser.json());
 app.use("./api", jsm);
 app.set("view engine", "ejs");
 
+// Get all tasks
+app.get("/", (req, res) => {
+    const tasks = JSON.parse(fs.readFileSync("db.json")).tasks;
+    res.render("tasks", { tasks });
+});
+
 // Listen on port 3000
 app.listen(3000, () => console.log("Listening on the port 3000"));
