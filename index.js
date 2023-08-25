@@ -39,5 +39,15 @@ app.post("/tasks/create", (req, res) => {
     res.redirect("/");
 });
 
+// Delete a task
+app.get("/tasks/delete/:id", (req, res) => {
+    const tasks = JSON.parse(fs.readFileSync("db.json")).tasks;
+    const newTasks = tasks.filter(
+        (task) => task.id !== parseInt(req.params.id)
+    );
+    fs.writeFileSync("db.json", JSON.stringify({ tasks: newTasks }));
+    res.redirect("/");
+});
+
 // Listen on port 3000
 app.listen(3000, () => console.log("Listening on the port 3000"));
