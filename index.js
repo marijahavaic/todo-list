@@ -25,5 +25,19 @@ app.get("/", (req, res) => {
     res.render("tasks", { tasks });
 });
 
+// Create new task
+app.post("/tasks/create", (req, res) => {
+    const tasks = JSON.parse(fs.readFileSync("db.json")).tasks;
+    const newTask = {
+        id: Date.now(),
+        title: req.body.title,
+        description: req.body.description,
+        status: req.body.status,
+    };
+    tasks.push(newTask);
+    fs.writeFileSync("db.json", JSON.stringify({ tasks }));
+    res.redirect("/");
+});
+
 // Listen on port 3000
 app.listen(3000, () => console.log("Listening on the port 3000"));

@@ -57,7 +57,36 @@
         <div class="container-fluid">
             <div class="logo"></div>
             <hr />
-            <div class="container"></div>
+            <div class="container">
+                <form action="/tasks/create" method="POST">
+                    <div class="grid">
+                        <label for="firstname">
+                            <input
+                                type="text"
+                                id="title"
+                                name="title"
+                                placeholder="Title of the task"
+                                required
+                            />
+                        </label>
+                        <select id="status" name="status" required>
+                            <option value="" selected>Select status</option>
+                            <option value="Faible">Low</option>
+                            <option value="Normal">Normal</option>
+                            <option value="Urgent">Urgent</option>
+                        </select>
+                    </div>
+                    <label for="description">Description of the task</label>
+                    <input
+                        type="text"
+                        id="description"
+                        name="description"
+                        placeholder="Write a task"
+                        required
+                    />
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
             <hr />
             <table>
                 <thead>
