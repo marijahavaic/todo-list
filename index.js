@@ -19,6 +19,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use("./api", jsm);
 app.set("view engine", "ejs");
+// ! Import for using static files but doesn't work
 app.use("/static", express.static(path.join(__dirname, "images")));
 
 // Get all tasks
@@ -48,7 +49,7 @@ app.get("/tasks/:id", (req, res) => {
     res.render("pages/task", { task });
 });
 
-//TODO Update a task
+//TODO Update a task - doesn't work properly
 app.patch("/tasks/update/:id", (req, res) => {
     const tasks = JSON.parse(fs.readFileSync("db.json")).tasks;
     const id = Number(req.params.id);
@@ -64,7 +65,6 @@ app.patch("/tasks/update/:id", (req, res) => {
         },
         ...tasks,
     ];
-    console.log(updatedTasks);
     res.render("pages/updateTask", { task });
     fs.writeFileSync("db.json", JSON.stringify({ tasks: updatedTasks }));
     res.redirect("/");
