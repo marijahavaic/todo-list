@@ -53,16 +53,18 @@
                 <tbody>
                     <%if(tasks.length){%> <% tasks.forEach(function(task){ %>
                     <tr>
-                        <td>
-                            <a class="btn" href="/tasks/<%= task.id %>">
-                                <%= task.title %>
-                            </a>
-                        </td>
+                        <td><%= task.title %></td>
                         <td><%= task.description %></td>
                         <td>
                             <p class="<%= task.status %>"><%= task.status %></p>
                         </td>
                         <td class="actions">
+                            <a class="btn" href="/tasks/<%= task.id %>">
+                                <img
+                                    src="https://api.iconify.design/ph:eye-fill.svg"
+                                    alt="Delete"
+                                />
+                            </a>
                             <a class="btn" href="/tasks/delete/<%= task.id %>">
                                 <img
                                     src="https://api.iconify.design/ic:baseline-delete-forever.svg"
