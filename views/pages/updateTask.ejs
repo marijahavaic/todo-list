@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+    <head>
+        <%- include('../partials/head'); %>
+    </head>
+
+    <body>
+        <div class="container-fluid">
+            <div class="logo">
+                <img src="../../images/Todo.png" alt="Logo image" />
+            </div>
+            <hr />
+            <div class="container">
+                <form action="/tasks/update/:id" method="PATCH">
+                    <div class="grid">
+                        <label for="firstname">
+                            <input
+                                type="text"
+                                id="title"
+                                name="title"
+                                value="<%= task.title %>"
+                                placeholder="Title of the task"
+                                required
+                            />
+                        </label>
+                        <select id="status" name="status" required>
+                            <option value="" selected>Select status</option>
+                            <option value="Faible">Low</option>
+                            <option value="Normal">Normal</option>
+                            <option value="Urgent">Urgent</option>
+                        </select>
+                    </div>
+                    <label for="description">Description of the task</label>
+                    <input
+                        type="text"
+                        id="description"
+                        name="description"
+                        value="<%= task.description %>"
+                        placeholder="Write a task"
+                        required
+                    />
+                    <button type="submit" class="contrast">Submit</button>
+                </form>
+            </div>
+            <footer><%- include('../partials/footer'); %></footer>
+        </div>
+    </body>
+</html>

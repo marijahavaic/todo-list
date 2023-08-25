@@ -1,61 +1,14 @@
 <!DOCTYPE html>
 <html lang="fr" data-theme="light">
     <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>TODO APP</title>
-        <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css"
-        />
-        <style>
-            .logo,
-            footer {
-                text-align: center;
-            }
-            hr {
-                margin-bottom: 2em;
-            }
-            .actions {
-                display: flex;
-                justify-content: space-around;
-                align-items: center;
-            }
-
-            .btn {
-                background-color: #fff;
-                padding: 0.5em;
-            }
-
-            .Urgent {
-                background-color: red;
-            }
-
-            .Faible {
-                background-color: green;
-            }
-
-            .Normal {
-                background-color: rgb(10, 189, 243);
-            }
-            .Urgent,
-            .Faible,
-            .Normal {
-                color: #fff;
-                text-align: center;
-                border-radius: 2em;
-                font-weight: bold;
-            }
-            button {
-                width: inherit;
-            }
-        </style>
+        <%- include('../partials/head'); %>
     </head>
 
     <body>
         <div class="container-fluid">
-            <div class="logo"></div>
+            <div class="logo">
+                <img src="../../images/Todo.png" alt="Logo image" />
+            </div>
             <hr />
             <div class="container">
                 <form action="/tasks/create" method="POST">
@@ -84,7 +37,7 @@
                         placeholder="Write a task"
                         required
                     />
-                    <button type="submit">Submit</button>
+                    <button type="submit" class="contrast">Submit</button>
                 </form>
             </div>
             <hr />
@@ -100,7 +53,11 @@
                 <tbody>
                     <%if(tasks.length){%> <% tasks.forEach(function(task){ %>
                     <tr>
-                        <td><%= task.title %></td>
+                        <td>
+                            <a class="btn" href="/tasks/<%= task.id %>">
+                                <%= task.title %>
+                            </a>
+                        </td>
                         <td><%= task.description %></td>
                         <td>
                             <p class="<%= task.status %>"><%= task.status %></p>
@@ -109,7 +66,13 @@
                             <a class="btn" href="/tasks/delete/<%= task.id %>">
                                 <img
                                     src="https://api.iconify.design/ic:baseline-delete-forever.svg"
-                                    alt="Supprimer"
+                                    alt="Delete"
+                                />
+                            </a>
+                            <a class="btn" href="/tasks/update/<%= task.id %>">
+                                <img
+                                    src="https://api.iconify.design/material-symbols:edit.svg"
+                                    alt="Edit"
                                 />
                             </a>
                         </td>
@@ -121,9 +84,7 @@
                     <% } %>
                 </tbody>
             </table>
-            <footer>
-                <p>Fait par Marija</p>
-            </footer>
+            <footer><%- include('../partials/footer'); %></footer>
         </div>
     </body>
 </html>

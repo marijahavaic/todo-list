@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+    <head>
+        <%- include('../partials/head'); %>
+    </head>
+
+    <body>
+        <div class="container-fluid">
+            <div class="logo">
+                <img src="../images/Todo.png" alt="Logo image" />
+            </div>
+            <header class="container">
+                <hgroup>
+                    <h1><%= task.title %></h1>
+                    <h2><%= task.description %></h2>
+                </hgroup>
+            </header>
+            <footer><%- include('../partials/footer'); %></footer>
+        </div>
+    </body>
+</html>

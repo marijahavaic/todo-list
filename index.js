@@ -4,6 +4,7 @@ const express = require("express");
 const jsonServer = require("json-server");
 // Import filesystem
 const fs = require("fs");
+const path = require("path");
 // Import EJS
 const bodyParser = require("body-parser");
 
@@ -18,11 +19,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use("./api", jsm);
 app.set("view engine", "ejs");
+app.use("/static", express.static(path.join(__dirname, "images")));
 
 // Get all tasks
 app.get("/", (req, res) => {
     const tasks = JSON.parse(fs.readFileSync("db.json")).tasks;
-    res.render("tasks", { tasks });
+    res.render("pages/tasks", { tasks });
 });
 
 // Create new task
@@ -43,7 +45,29 @@ app.post("/tasks/create", (req, res) => {
 app.get("/tasks/:id", (req, res) => {
     const tasks = JSON.parse(fs.readFileSync("db.json")).tasks;
     const task = tasks.find((task) => task.id === parseInt(req.params.id));
-    res.render("task", { task });
+    res.render("pages/task", { task });
+});
+
+//TODO Update a task
+app.patch("/tasks/update/:id", (req, res) => {
+    const tasks = JSON.parse(fs.readFileSync("db.json")).tasks;
+    const id = Number(req.params.id);
+    const task = tasks.find((task) => task.id === id);
+    const index = task.id;
+    tasks.splice(index, 1);
+    const updatedTasks = [
+        {
+            id: index,
+            title: req.body.title,
+            description: req.body.description,
+            status: req.body.status,
+        },
+        ...tasks,
+    ];
+    console.log(updatedTasks);
+    res.render("pages/updateTask", { task });
+    fs.writeFileSync("db.json", JSON.stringify({ tasks: updatedTasks }));
+    res.redirect("/");
 });
 
 // Delete a task
